@@ -11,6 +11,11 @@
   },
   "customizations": {
     "codespaces": {
+      "repositories": {
+        "PadreDeVin/product-builder-test": {
+          "permissions": "write-all"
+        }
+      },
       "openFiles": [
         "src/App.jsx"
       ]
