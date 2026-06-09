@@ -1,70 +1,53 @@
-# GitHub Codespaces ♥️ React
+# Daily Finance Dashboard MVP
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+금융 시장 동향을 한눈에 파악할 수 있는 일일 금융 대시보드 MVP입니다. 기존의 엑셀/PPT 보고서를 대체하기 위해 제작되었습니다.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## 주요 기능
+- **일일 시황 헤더**: 당일 날짜 및 업데이트 시간 표시
+- **미국/국내 시장 동향**: SOFR, 주요 지수(DOW, NASDAQ, KOSPI 등), 국고채 금리 현황
+- **환율 추이**: USD/KRW 환율 차트 및 최고/최저가 표시
+- **주요 그룹사 현황**: 계열사별 주가 및 신용등급, 민평금리 정보
+- **금융 뉴스**: 최신 주요 금융 뉴스 리스트
+- **데이터 다운로드**: 각 섹션의 원본 JSON 데이터를 개별 다운로드 가능
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+## 기술 스택
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts
+- **Automation**: GitHub Actions (데이터 수집 스케줄러)
+- **Deployment**: Cloudflare Pages
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## 로컬 실행 방법
+1. 의존성 설치:
+   ```bash
+   npm install
+   ```
+2. 개발 서버 실행:
+   ```bash
+   npm run dev
+   ```
+3. 브라우저에서 `http://localhost:3000` 접속
 
-## Available Scripts
+## 데이터 업데이트 (스케줄러)
+- GitHub Actions 워크플로우(`.github/workflows/collect-daily-data.yml`)가 설정되어 있습니다.
+- **평일 오전 08:30 (KST)**에 자동으로 `scripts/collect-daily-data.ts`를 실행하여 `/public/data/*.json` 파일을 업데이트합니다.
+- 수동 실행: GitHub Actions 탭에서 `Collect Daily Finance Data` 워크플로우를 선택 후 `Run workflow` 클릭
 
-In the project directory, you can run:
+## Cloudflare Pages 배포 방법
+1. GitHub 저장소를 Cloudflare Pages에 연결합니다.
+2. 빌드 설정을 다음과 같이 입력합니다:
+   - **Framework preset**: `Next.js (Static HTML Export)`
+   - **Build command**: `npm run build`
+   - **Output directory**: `out`
+3. 배포를 완료합니다.
 
-### `npm start`
+## 향후 확장 (Real API 연결)
+현재는 `scripts/collect-daily-data.ts`에서 모의 데이터(Mock Data)를 생성하고 있습니다. 실제 API를 연결하려면 해당 스크립트 내의 `FUTURE: Add API calls here` 주석 부분을 다음과 같이 수정하세요:
+- **시장 지표**: 한국은행(BOK) API, FRED API
+- **주식/지수**: Alpha Vantage, Yahoo Finance API
+- **환율**: 한국수출입은행 API
+- **뉴스**: Naver/Google News API
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
-
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
-
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+---
+*본 프로젝트는 내부 보고용 MVP 버전입니다.*
