@@ -43,14 +43,14 @@ async function collectMarketData() {
   
   // 1. 기준금리 (722Y001 / 0101000)
   const baseRateRow = await fetchEcosData('722Y001', '0101000');
-  // 2. CD 91일 (721Y001 / 010300000)
-  const cdRateRow = await fetchEcosData('721Y001', '010300000');
-  // 3. 국고채 3년 (721Y001 / 010200000)
-  const bond3yRow = await fetchEcosData('721Y001', '010200000');
-  // 4. 국고채 5년 (721Y001 / 010210000)
-  const bond5yRow = await fetchEcosData('721Y001', '010210000');
-  // 5. 국고채 10년 (721Y001 / 010220000)
-  const bond10yRow = await fetchEcosData('721Y001', '010230000');
+  // 2. CD 91일 (817Y002 / 010502000)
+  const cdRateRow = await fetchEcosData('817Y002', '010502000');
+  // 3. 국고채 3년 (817Y002 / 010200000)
+  const bond3yRow = await fetchEcosData('817Y002', '010200000');
+  // 4. 국고채 5년 (817Y002 / 010200001)
+  const bond5yRow = await fetchEcosData('817Y002', '010200001');
+  // 5. 국고채 10년 (817Y002 / 010210000)
+  const bond10yRow = await fetchEcosData('817Y002', '010210000');
 
   const getLatest = (rows: any[]) => rows ? rows[rows.length - 1] : null;
   const getPrev = (rows: any[]) => rows && rows.length > 1 ? rows[rows.length - 2] : null;
