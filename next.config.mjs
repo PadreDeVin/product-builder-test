@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Required for Cloudflare Pages if not using SSR
+  // Removed output: 'export' to support API Routes on Cloudflare Pages
   images: {
     unoptimized: true,
   },

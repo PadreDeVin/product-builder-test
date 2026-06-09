@@ -9,8 +9,6 @@ import { GroupCompanyTable } from '@/components/GroupCompanyTable';
 import { NewsList } from '@/components/NewsList';
 import { Clock } from 'lucide-react';
 
-import { getRealTimeFinanceData } from '@/lib/finance-api';
-
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
   const [lastUpdated, setLastUpdated] = useState<string>('');
@@ -18,8 +16,9 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch real-time domestic data from ECOS
-        const realTimeData = await getRealTimeFinanceData();
+        // Fetch real-time data via internal API proxy (solves CORS)
+        const res = await fetch('/api/finance');
+        const realTimeData = await res.json();
         
         // Fetch other static data
         const [exchange, companies, news] = await Promise.all([
