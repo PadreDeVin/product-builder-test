@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint",
     "collect-data": "tsx scripts/collect-daily-data.ts"
@@ -13,13 +14,14 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.395.0",
-    "next": "^14.2.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "recharts": "^2.12.7",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@types/node": "^20.14.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

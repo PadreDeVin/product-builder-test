@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 // Updated for fresh deployment: 2026-06-09
 const ECOS_API_KEY = '1I1SGTDT40QP2IB725YS';
 
