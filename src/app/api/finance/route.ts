@@ -44,10 +44,9 @@ export async function GET() {
     const diff = valCurr - valPrev;
     
     if (isStock) {
-        const pointChange = diff.toFixed(2);
         const percentChange = ((diff / valPrev) * 100).toFixed(2);
         const sign = diff > 0 ? '+' : '';
-        return `${sign}${pointChange} (${sign}${percentChange}%)`;
+        return `${sign}${percentChange}%`;
     } else {
         const pointChange = diff.toFixed(2);
         const sign = diff > 0 ? '+' : '';
