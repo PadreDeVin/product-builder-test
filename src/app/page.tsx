@@ -9,6 +9,8 @@ import { GroupCompanyTable } from '@/components/GroupCompanyTable';
 import { NewsList } from '@/components/NewsList';
 import { Clock } from 'lucide-react';
 
+import { getRealTimeFinanceData } from '@/lib/finance-api';
+
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
   const [lastUpdated, setLastUpdated] = useState<string>('');
@@ -16,14 +18,22 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [market, exchange, companies, news] = await Promise.all([
-          fetch('/data/daily-market.json').then(res => res.json()),
+        // Fetch real-time domestic data from ECOS
+        const realTimeData = await getRealTimeFinanceData();
+        
+        // Fetch other static data
+        const [exchange, companies, news] = await Promise.all([
           fetch('/data/exchange-history.json').then(res => res.json()),
           fetch('/data/group-companies.json').then(res => res.json()),
           fetch('/data/news.json').then(res => res.json()),
         ]);
 
-        setData({ market, exchange, companies, news });
+        setData({ 
+          market: realTimeData.market, 
+          exchange, 
+          companies, 
+          news 
+        });
         setLastUpdated(format(new Date(), 'yyyy.MM.dd HH:mm:ss'));
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error);
