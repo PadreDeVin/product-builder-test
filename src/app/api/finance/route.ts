@@ -26,23 +26,32 @@ async function fetchEcosData(code: string, itemCode: string, period: string = 'D
 }
 
 export async function GET() {
-  const getLatest = (rows: any[]) => rows ? rows[rows.length - 1] : null;
-  const getPrev = (rows: any[]) => rows && rows.length > 1 ? rows[rows.length - 2] : null;
+  const getLatest = (rows: any[]) => {
+    if (!rows || rows.length === 0) return null;
+    return rows.sort((a, b) => a.TIME.localeCompare(b.TIME))[rows.length - 1];
+  };
+  
+  const getPrev = (rows: any[]) => {
+    if (!rows || rows.length < 2) return null;
+    const sorted = [...rows].sort((a, b) => a.TIME.localeCompare(b.TIME));
+    return sorted[sorted.length - 2];
+  };
 
-  const formatChange = (curr: any, prev: any, isPercentage: boolean = false) => {
+  const formatChange = (curr: any, prev: any, isStock: boolean = false) => {
     if (!curr || !prev) return "0.00%";
     const valCurr = parseFloat(curr);
     const valPrev = parseFloat(prev);
+    const diff = valCurr - valPrev;
     
-    if (isPercentage) {
-        const diff = valCurr - valPrev;
-        const rate = (diff / valPrev) * 100;
-        const sign = rate > 0 ? '+' : '';
-        return `${sign}${rate.toFixed(2)}%`;
+    if (isStock) {
+        const pointChange = diff.toFixed(2);
+        const percentChange = ((diff / valPrev) * 100).toFixed(2);
+        const sign = diff > 0 ? '+' : '';
+        return `${sign}${pointChange} (${sign}${percentChange}%)`;
     } else {
-        const diff = (valCurr - valPrev).toFixed(2);
-        const sign = parseFloat(diff) > 0 ? '+' : '';
-        return `${sign}${diff}%p`;
+        const pointChange = diff.toFixed(2);
+        const sign = diff > 0 ? '+' : '';
+        return `${sign}${pointChange}%p`;
     }
   };
 
